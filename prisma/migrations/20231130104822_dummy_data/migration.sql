@@ -16,6 +16,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Todos" (
     "id" TEXT NOT NULL,
     "title" VARCHAR(255) NOT NULL,
+    "isPriority" BOOLEAN DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
@@ -27,7 +28,7 @@ CREATE TABLE "Todos" (
 CREATE TABLE "Tasks" (
     "id" TEXT NOT NULL,
     "taskName" VARCHAR(255) NOT NULL,
-    "status" "Status" NOT NULL,
+    "status" "Status" DEFAULT 'CREATED',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "todosId" TEXT NOT NULL,
@@ -48,7 +49,7 @@ CREATE UNIQUE INDEX "Todos_id_key" ON "Todos"("id");
 CREATE UNIQUE INDEX "Tasks_id_key" ON "Tasks"("id");
 
 -- AddForeignKey
-ALTER TABLE "Todos" ADD CONSTRAINT "Todos_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Todos" ADD CONSTRAINT "Todos_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Tasks" ADD CONSTRAINT "Tasks_todosId_fkey" FOREIGN KEY ("todosId") REFERENCES "Todos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Tasks" ADD CONSTRAINT "Tasks_todosId_fkey" FOREIGN KEY ("todosId") REFERENCES "Todos"("id") ON DELETE CASCADE ON UPDATE CASCADE;

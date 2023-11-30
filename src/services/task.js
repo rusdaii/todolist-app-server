@@ -54,7 +54,6 @@ class TaskService {
   };
 
   static deleteTask = async (todoId, taskId, userId) => {
-    console.log('task ID', taskId, 'todoId');
     const task = await prisma.tasks.findFirst({
       where: {
         id: taskId,

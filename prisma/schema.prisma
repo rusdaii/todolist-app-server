@@ -1,0 +1,49 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Status {
+  CREATED
+  ONPROGRESS
+  COMPLETED
+}
+
+model User {
+  id        String   @id @unique @default(uuid())
+  username  String   @unique @db.VarChar(255)
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  Todos     Todos[]
+}
+
+model Todos {
+  id         String   @id @unique @default(uuid())
+  title      String   @db.VarChar(255)
+  isPriority Boolean? @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  tasks Tasks[]
+}
+
+model Tasks {
+  id        String   @id @unique @default(uuid())
+  taskName  String   @db.VarChar(255)
+  status    Status?  @default(CREATED)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  todos     Todos    @relation(fields: [todosId], references: [id], onDelete: Cascade)
+  todosId   String
+}

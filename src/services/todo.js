@@ -8,9 +8,9 @@ class TodoService {
       where: {
         userId: userId,
       },
-      include: {
-        tasks: true,
-      },
+      // include: {
+      //   tasks: true,
+      // },
     });
 
     return todos;
@@ -22,9 +22,9 @@ class TodoService {
         id: todoId,
         userId,
       },
-      include: {
-        tasks: true,
-      },
+      // include: {
+      //   tasks: true,
+      // },
     });
 
     if (!todo) {

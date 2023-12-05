@@ -2,12 +2,10 @@ const prisma = require('../../src/lib/prisma');
 
 const seedUser = require('./user');
 const seedTodo = require('./todo');
-const seedTask = require('./task');
 
 async function main() {
-  await seedUser();
-  await seedTodo();
-  await seedTask();
+  // await seedUser();
+  // await seedTodo();
 }
 
 main()

@@ -1,5 +1,4 @@
 const TodoController = require('../controllers/todo.controller');
-const TaskController = require('../controllers/task.controller');
 const authentication = require('../middlewares/authentication');
 const { authorization } = require('../middlewares/authorization');
 
@@ -14,14 +13,6 @@ router.delete(
   authentication,
 
   TodoController.deleteTodo
-);
-
-router.post('/:id/tasks', authentication, TaskController.createTask);
-router.put('/:todoId/tasks/:taskId', authentication, TaskController.updateTask);
-router.delete(
-  '/:todoId/tasks/:taskId',
-  authentication,
-  TaskController.deleteTask
 );
 
 module.exports = router;
